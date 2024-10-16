@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Login Page</title>
+</head>
+<body>
+	<section>
+
+		<div class="container py-5 h-100">
+			<div
+				class="row d-flex align-items-center justify-content-center h-100">
+				<div class="col-md-8 col-lg-7 col-xl-6">
+					<img
+						src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+						class="img-fluid" alt="Phone image">
+				</div>
+				<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+				
+				
+					<form method="post" th:action="@{/dologin}" action="#">
+					
+						<h3 class="text-center form-info">Login</h3>
+						<div th:if="${param.error}" class="alert alert-danger">
+							Invalid Username and password</div>
+
+						<div th:if="${param.logout}" class="alert alert-success">
+							You have been logged out</div>
+
+						
+
+
+						<!-- Email input -->
+						<div class="form-outline mb-4">
+							<input type="email" placeholder="Email Address" name="username"
+								id="username" class="form-control form-control-lg" />
+						</div>
+
+						<!-- Password input -->
+						<div class="form-outline mb-4">
+							<input type="password" placeholder="Password" id="username"
+								name="password" class="form-control form-control-lg" />
+						</div>
+
+						<div
+							class="d-flex justify-content-between align-items-center mb-4">
+							<a href="/signup">Register here</a> <a href="#!">Forgot
+								password?</a>
+						</div>
+
+						<!-- Submit button -->
+						<button type="submit"
+							class="btn btn-primary btn-lg btn-block w-100 custom-btn">Sign
+							in</button>
+						<!-- 
+						<div class="my-4 text-center ">
+							<p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+						</div>
+
+						Facebook button
+						<a
+							class="btn btn-primary btn-lg btn-block w-100 mb-2 custom-facebook-btn"
+							style="background-color: #3b5998;" href="#!" role="button"> <i
+							class="fab fa-facebook-f me-2"></i>Continue with Facebook
+						</a>
+
+						Twitter button
+						<a
+							class="btn btn-primary btn-lg btn-block w-100 custom-twitter-btn"
+							style="background-color: #55acee;" href="#!" role="button"> <i
+							class="fab fa-twitter me-2"></i>Continue with Twitter
+						</a> -->
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

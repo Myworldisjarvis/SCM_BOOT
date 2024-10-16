@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{normal/user-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>All Contacts</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+
+	<section>
+
+		<div class="container mt-4">
+			<h2 class="text-center mb-4">All Contacts</h2>
+
+			<!-- Success/Error Message Display -->
+			<div th:if="${message}"
+				class="alert alert-success alert-dismissible fade show" role="alert"
+				id="success-alert">
+				<span th:text="${message}"></span>
+			</div>
+			<div th:if="${errorMessage}"
+				class="alert alert-danger alert-dismissible fade show" role="alert"
+				id="error-alert">
+				<span th:text="${errorMessage}"></span>
+			</div>
+
+
+			<!-- Search Bar -->
+			<div class="mb-3">
+				<input type="text" id="searchInput" onkeyup="searchContacts()"
+					placeholder="Search by name, email or phone..."
+					class="form-control" />
+			</div>
+
+			<div class="table-responsive">
+				<table class="table contacts-table">
+					<thead>
+						<tr>
+							<th>#ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Work</th>
+							<!-- <th>Image</th> -->
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Loop through contacts and display them in rows -->
+						<tr th:each="contact, count : ${contacts}">
+							<td th:text="${count.index + 1}"></td>
+
+							<td><img th:src="'/Images/'+${contact.imageUrl}"
+								alt="Profile Image" width="50" height="50" class="img-thumbnail">
+								<span th:text="${contact.name}"></span></td>
+
+							<td><a href="#"
+								th:href="@{'/user/'+${contact.cId}+'/contact'}"> <span
+									th:text="${contact.email}"></span></a></td>
+
+							<td th:text="${contact.phone}"></td>
+							<td th:text="${contact.work}"></td>
+
+							<!-- <td><img th:src="'/Images/'+${contact.imageUrl}"
+								alt="Profile Image" width="50" height="50" class="img-thumbnail">
+							</td>
+							 -->
+							<td>
+								<div class="table-actions">
+									<a th:href="@{'/user/'+${contact.cId}+'/contact'}"
+										class="btn btn-sm btn-info">View</a> <a
+										th:href="@{/user/edit-contact/} + ${contact.cId}"
+										class="btn btn-sm btn-warning">Edit</a> <a
+										th:href="@{/user/delete-contact/} + ${contact.cId}"
+										class="btn btn-sm btn-danger">Delete</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- Pagination -->
+			<nav th:if="${totalPages > 0}">
+				<ul class="pagination justify-content-center">
+					<li th:if="${currentPage != 0}" class="page-item"><a
+						th:href="@{'/user/view-contacts/'+ ${currentPage-1}}"
+						class="page-link">Previous</a></li>
+
+					<li th:classappend="${currentPage==i-1?'active':''}"
+						th:each="i : ${#numbers.sequence(1,totalPages)}" class="page-item">
+						<a th:href="@{'/user/view-contacts/'+ ${i-1}}" class="page-link"><span
+							th:text="${i}"></span></a>
+					</li>
+
+					<li th:if="${currentPage + 1 != totalPages}" class="page-item">
+						<a th:href="@{'/user/view-contacts/'+ ${currentPage+1}}"
+						class="page-link">Next</a>
+					</li>
+				</ul>
+			</nav>
+
+		</div>
+	</section>
+
+</body>
+</html>

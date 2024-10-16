@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{normal/user-base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Details</title>    
+</head>
+<body>
+
+
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card contact-card shadow-lg">
+                <div class="card-header contact-card-header text-center">
+                    <h3 class="card-title" th:text="${contact.name} + ' ' + ${contact.secondName}">Contact Name</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Profile Image Section -->
+                    <div class="text-center mb-4">
+                        <img th:src="@{'/Images/' + ${contact.imageUrl}}" alt="Profile Image" class="profile-image rounded-circle">
+                    </div>
+
+                    <!-- Contact Details Section -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="d-flex align-items-center">
+                                <i class="fas fa-envelope contact-icon"></i>
+                                <strong>Email:</strong>
+                                <span th:text="${contact.email}" class="ms-2">Email Address</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="d-flex align-items-center">
+                                <i class="fas fa-phone contact-icon"></i>
+                                <strong>Phone:</strong>
+                                <span th:text="${contact.phone}" class="ms-2">Phone Number</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p class="d-flex align-items-center">
+                                <i class="fas fa-briefcase contact-icon"></i>
+                                <strong>Work:</strong>
+                                <span th:text="${contact.work}" class="ms-2">Work</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Description Section -->
+                    <div class="mt-4">
+                        <h5><strong>Description:</strong></h5>
+                        <p th:text="${contact.description}" class="description-text">Contact description</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="text-center mt-4">
+                        <a th:href="@{/user/edit-contact/} + ${contact.cId}" class="btn custom-btnn mx-2"><i class="fas fa-edit"></i> Edit</a>
+                        <a th:href="@{/user/delete-contact/} + ${contact.cId}" class="btn btn-danger mx-2"><i class="fas fa-trash"></i> Delete</a>
+                        <a th:href="@{/user/view-contacts/0}" class="btn btn-secondary mx-2"><i class="fas fa-arrow-left"></i> Back to Contacts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
