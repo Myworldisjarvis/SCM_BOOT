@@ -206,7 +206,6 @@ public class UserController {
 	public String deleteSpecificContactDetail(@PathVariable("cId") Integer cId, RedirectAttributes redirectAttributes,
 			Principal p) {
 
-		System.out.println("CID: " + cId);
 		String username = p.getName();
 		User user = this.userRepository.getUserByUserName(username);
 
@@ -250,6 +249,102 @@ public class UserController {
 			return "redirect:/user/view-contacts/0"; // Redirect to the first page if no contacts are left
 		}
 
+	}
+
+	
+	
+	// Open edit specific user contact form  
+	@PostMapping("/edit-contact/{cId}")
+	public String editSpecificContactDetail(@PathVariable("cId") Integer cId, Model m,
+			RedirectAttributes redirectAttributes, Principal p) {
+
+		String username = p.getName();
+		User user = this.userRepository.getUserByUserName(username);
+		Contact contact = this.contactRepository.findById(cId).get();
+
+		if (user.getId() == contact.getUser().getId()) {
+			m.addAttribute("title", "Edit-Contact");
+			m.addAttribute("contact", contact);
+			return "normal/update_user_contactForm";
+
+		} else {
+
+			return "redirect:/user/view-contacts/0";
+		}
+	}
+
+	//edit specific user contact (FORM) 
+	@PostMapping("/process-edit-contact")
+	public String processEditContactForm(@Valid @ModelAttribute Contact contact, BindingResult result,
+	                                     @RequestParam("file") MultipartFile file, Model model, Principal p, 
+	                                     HttpSession session, RedirectAttributes redirectAttributes) {
+	    try {
+	        
+	        // Fetch old contact to handle image
+	        Contact oldContact = this.contactRepository.findById(contact.getcId()).get();
+
+	        if (result.hasErrors()) {
+	            // Set old image URL if there's a validation error
+	            contact.setImageUrl(oldContact.getImageUrl());
+	            model.addAttribute("contact", contact);
+	            return "normal/update_user_contactForm";
+	        }
+
+	        // Get the user
+	        User user = this.userRepository.getUserByUserName(p.getName());
+	        contact.setUser(user);
+
+	        // File upload handling
+	        if (!file.isEmpty()) {
+
+	            // Delete the old image if a new file is uploaded
+	            if (oldContact.getImageUrl() != null) {
+	                File oldImageFile = new ClassPathResource("static/Images").getFile();
+	                File oldImage = new File(oldImageFile, oldContact.getImageUrl());
+	                
+	                if (oldImage.exists()) {
+	                    oldImage.delete();  // Delete old image from the server
+	                }
+	            }
+
+	            // Static folder ke andar Images folder ko locate karo
+	            File saveDir = new ClassPathResource("static/Images").getFile();
+
+	            // Unique file name generate karo
+	            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+
+	            // Final file path banao
+	            Path uploadPath = Paths.get(saveDir.getAbsolutePath() + File.separator + fileName);
+
+	            // Agar directory exist nahi karti toh usko create karo
+	            if (!Files.exists(uploadPath.getParent())) {
+	                Files.createDirectories(uploadPath.getParent());
+	            }
+
+	            // File ko save karo
+	            InputStream inputStream = file.getInputStream();
+	            Files.copy(inputStream, uploadPath, StandardCopyOption.REPLACE_EXISTING);
+
+	            // Contact object mein file ka naam save karo
+	            contact.setImageUrl(fileName);
+	        } else {
+	            // Keep the old image if no new file is uploaded
+	            contact.setImageUrl(oldContact.getImageUrl());
+	        }
+
+	        // Save contact
+	        this.contactRepository.save(contact);
+	        model.addAttribute("contact", new Contact());
+	        redirectAttributes.addFlashAttribute("message", "Contact Updated successfully!");
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        model.addAttribute("contact", contact);
+	        session.setAttribute("message", new Message("Something went wrong: " + e.getMessage(), "alert-danger"));
+	        return "normal/update_user_contactForm";
+	    }
+
+	    return "redirect:/user/view-contacts/0";
 	}
 
 }

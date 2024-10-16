@@ -69,9 +69,13 @@
 							<td>
 								<div class="table-actions">
 									<a th:href="@{'/user/'+${contact.cId}+'/contact'}"
-										class="btn btn-sm btn-info">View</a> <a
-										th:href="@{/user/edit-contact/} + ${contact.cId}"
-										class="btn btn-sm btn-warning">Edit</a> <a
+										class="btn btn-sm btn-info">View</a> 
+										
+										<form th:action="@{/user/edit-contact/} + ${contact.cId}" method="post">
+										<button class="btn btn-sm btn-warning">Edit</button>
+										</form>
+										
+										 <a
 										th:href="@{/user/delete-contact/} + ${contact.cId}"
 										class="btn btn-sm btn-danger">Delete</a>
 								</div>

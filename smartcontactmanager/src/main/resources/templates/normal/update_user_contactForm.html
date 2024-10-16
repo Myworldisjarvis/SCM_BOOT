@@ -11,27 +11,36 @@
 
 		<div class="container">
 			<div class="form-container">
-
+				
 
 				<!-- Alert message block -->
 				<div th:if="${session.message != null}"
-					th:classappend="${session.message.type}" class="alert text-center" role="alert">
+					th:classappend="${session.message.type}" class="alert text-center"
+					role="alert">
 					<p th:text="${session.message.content}"></p>
 					<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
 				</div>
-				
-				<h2 class="text-center mb-4">Add New Contact</h2>
+
+				<h2 class="text-center mb-4">Update Your Contact</h2>
 				<form novalidate action="#" th:object="${contact}"
 					enctype="multipart/form-data" method="post"
-					th:action="@{/user/process-contact}">
+					th:action="@{/user/process-edit-contact}">
+					<!-- Profile Image Section -->
+					<div class="text-center mb-4">
+						<img th:src="@{'/Images/' + ${contact.imageUrl}}"
+							alt="Profile Image" class="profile-image rounded-circle">
+					</div>
+
+					<input type="hidden" th:value="${contact.cId}" name="cId">
 
 					<div class="row mb-3">
 						<div class="col-md-6">
 							<label for="name" class="form-label">First Name</label>
 							<div class="input-group">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
-								<input type="text" class="form-control" id="name" name="name" th:value="${contact.name}"
-									placeholder="Enter first name" required>
+								<input type="text" class="form-control" id="name" name="name"
+									th:value="${contact.name}" placeholder="Enter first name"
+									required>
 							</div>
 							<div class="text-danger" th:if="${#fields.hasErrors('name')}"
 								th:errors="*{name}"></div>
@@ -40,8 +49,9 @@
 							<label for="secondName" class="form-label">Second Name</label>
 							<div class="input-group">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
-								<input type="text" class="form-control" id="secondName" th:value="${contact.secondName}"
-									name="secondName" placeholder="Enter second name">
+								<input type="text" class="form-control" id="secondName"
+									th:value="${contact.secondName}" name="secondName"
+									placeholder="Enter second name">
 							</div>
 							<div class="text-danger"
 								th:if="${#fields.hasErrors('secondName')}"
@@ -55,8 +65,8 @@
 							<div class="input-group">
 								<span class="input-group-text"><i
 									class="fas fa-briefcase"></i></span> <input type="text"
-									class="form-control" id="work" name="work" th:value="${contact.work}"
-									placeholder="Enter work details">
+									class="form-control" id="work" name="work"
+									th:value="${contact.work}" placeholder="Enter work details">
 							</div>
 
 						</div>
@@ -64,8 +74,8 @@
 							<label for="email" class="form-label">Email</label>
 							<div class="input-group">
 								<span class="input-group-text">@</span> <input type="email"
-									class="form-control" id="email" name="email" th:value="${contact.email}"
-									placeholder="Enter email" required>
+									class="form-control" id="email" name="email"
+									th:value="${contact.email}" placeholder="Enter email" required>
 							</div>
 							<div class="text-danger" th:if="${#fields.hasErrors('email')}"
 								th:errors="*{email}"></div>
@@ -77,18 +87,18 @@
 							<label for="phone" class="form-label">Phone</label>
 							<div class="input-group">
 								<span class="input-group-text"><i class="fas fa-phone"></i></span>
-								<input type="tel" class="form-control" id="phone" name="phone" th:value="${contact.phone}"
-									placeholder="Enter phone number" required>
+								<input type="tel" class="form-control" id="phone" name="phone"
+									th:value="${contact.phone}" placeholder="Enter phone number"
+									required>
 							</div>
 							<div class="text-danger" th:if="${#fields.hasErrors('phone')}"
 								th:errors="*{phone}"></div>
 						</div>
 						<div class="col-md-6">
-							<label for="file" class="form-label">Image</label>
+							<label for="file" class="form-label">New Image</label>
 							<div class="input-group">
 								<span class="input-group-text"><i class="fas fa-link"></i></span>
-								<input type="file" class="form-control" id="file"
-									name="file" placeholder="Enter image URL">
+								<input type="file" class="form-control" id="file" name="file">
 							</div>
 						</div>
 					</div>
@@ -98,8 +108,8 @@
 						<div class="input-group">
 							<span class="input-group-text"><i
 								class="fas fa-align-left"></i></span>
-							<textarea th:text="${contact.description}" class="form-control" id="description" 
-								name="description" rows="5" maxlength="50000"></textarea>
+							<textarea th:text="${contact.description}" class="form-control"
+								id="description" name="description" rows="5" maxlength="50000"></textarea>
 						</div>
 						<div class="text-danger"
 							th:if="${#fields.hasErrors('description')}"
@@ -109,6 +119,8 @@
 					<div class="d-grid">
 						<button type="submit" class="submit-btn">Add Contact</button>
 					</div>
+					<div class="d-grid"><a th:href="@{/user/view-contacts/0}" class="btn btn-secondary m-2"><i
+					class="fas fa-arrow-left"></i> Back to Contacts</a></div>					
 				</form>
 			</div>
 		</div>
