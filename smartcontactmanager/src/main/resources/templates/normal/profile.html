@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{normal/user-base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<section>
+
+
+<div class="container">
+    <section class="mx-auto my-5" style="max-width: 30rem;">
+        <div class="card testimonial-card mt-2 mb-3">
+            <div class="card-up aqua-gradient"></div>
+            <div class="avatar mx-auto white">
+                <img th:src="@{'/Images/' + ${user.imageUrl}}" class="rounded-circle img-fluid" alt="User Avatar">
+            </div>
+            <div class="card-body text-center">
+                <h2 th:text="${user.name}">User Name</h2>
+                <p th:text="${user.user_type == 'ADMIN' ? 'Administrator' : 'User'}">User Type</p>
+                <hr>
+
+                <!-- Profile Details -->
+                <div class="profile-info ">
+                    <!-- Email -->
+                    <h5 style=" text-align: left;">Email Address:</h5>
+                    <p class="icon-text">
+                        <i class="fas fa-envelope"></i> <span th:text="${user.email}">user.email@example.com</span>
+                    </p>
+
+                    <!-- User Bio/Details -->
+                    <h5 style=" text-align: left;">User Bio/Details:</h5>
+                    <p class="icon-text">
+                        <i class="fas fa-info-circle"></i> <span th:text="${user.uDetails}">No details provided</span>
+                    </p>
+
+                    <!-- Account Status -->
+                    <h5 style=" text-align: left;">Account Status:</h5>
+                    <p class="icon-text">
+                        <i class="fas fa-user-check"></i> <span th:text="${user.enabled ? 'Active' : 'Inactive'}">Active</span>
+                    </p>
+                </div>
+
+                <!-- Edit Profile Button -->
+                <a th:href="@{/user/edit-contact/} + ${user.id}" class="btn btn-warning mt-3">Edit Profile</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+	</section>
+	
+</body>
+</html>

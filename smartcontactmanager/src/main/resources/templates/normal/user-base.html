@@ -50,18 +50,30 @@
 	<div class="sidebar">
 		<span onclick="toggleSidebar()" class="close-btn">&times;</span>
 		<h4 class="text-center">Menu</h4>
-		<a href="#" th:href="@{/user/index}" class="item"> <i
-			class="fa-solid fa-house me-2" style="color: #ffffff;"></i> Home
-		</a> <a href="#" th:href="@{/user/view-contacts/0}" class="item"><i
-			class="fa-solid fa-id-card  me-2" style="color: #ffffff;"></i>View
-			Contacts</a> <a href="#" th:href="@{/user/add-contact}" class="item"><i
-			class="fa-solid fa-pencil  me-2" style="color: #ffffff;"></i>Add
-			Contact</a> <a href="#" class="item"><i
-			class="fa-solid fa-user-circle  me-2" style="color: #ffffff;"></i>Your
-			Profile</a> <a href="#" class="item"><i
-			class="fa-solid fa-cogs  me-2" style="color: #ffffff;"></i>Settings</a> <a
-			th:href="@{/logout}" class="item"><i
-			class="fa-solid fa-sign-out  me-2" style="color: #ffffff;"></i>Logout</a>
+		<a href="#" th:href="@{/user/index}" class="item"> 
+		<i class="fa-solid fa-house me-2" style="color: #ffffff;"></i> Home
+		</a> 
+		
+		<a href="#" th:href="@{/user/view-contacts/0}" class="item">
+		<i class="fa-solid fa-id-card  me-2" style="color: #ffffff;"></i>View Contacts
+		</a>
+		
+		<a href="#" th:href="@{/user/add-contact}" class="item">
+		<i class="fa-solid fa-pencil  me-2" style="color: #ffffff;"></i>Add Contact
+		</a> 
+		
+		<a href="#" th:href="@{/user/view-profile}" class="item">
+		<i class="fa-solid fa-user-circle  me-2" style="color: #ffffff;"></i>Your Profile
+		</a>
+		
+		 <a href="#" class="item">
+		 <i class="fa-solid fa-cogs  me-2" style="color: #ffffff;"></i>Settings
+		 </a> 
+		 
+		 <a th:href="@{/logout}" class="item">
+		 <i class="fa-solid fa-sign-out  me-2" style="color: #ffffff;"></i>Logout
+		 </a>
+		 
 		<div class="divider"></div>
 
 	</div>

@@ -9,7 +9,25 @@
 
 <section>
 
- <h1>Welcome to SCM </h1>
+ 
+    <div class="container">
+        <div class="card" >
+            <div class="header">
+                <h1>Smart Contact Manager</h1>
+                <p>Manage your contacts efficiently and effectively!</p>
+                <div class="image-container">
+                    <img style="height: 90px";width="90px;" th:src="@{/Images/default.png}" alt="Contact Manager" class="img-fluid mb-3" />
+                </div>
+                <div>
+                    <a href="/user/add-contact" class="btn btn-primary add-contact-btn">Add Contact</a>
+                </div>
+            </div>
+            <div class="footer">
+                <p>Developed by Your Name | <a href="mailto:youremail@example.com">Contact</a></p>
+            </div>
+            <div class="current-time" id="current-time"></div>
+        </div>
+    </div>
 
 </section>
 

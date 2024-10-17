@@ -50,6 +50,43 @@ window.setTimeout(function() {
        }
    }, 3000); // 3 seconds
 
+/* timer in home page
+// Set the countdown time (example: 5 minutes)
+       var countdownTime = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+       function updateTimer() {
+           var now = new Date().getTime();
+           var distance = countdownTime - (now % countdownTime); // Subtract the current time from countdown time
+
+           var minutes = Math.floor(distance / (1000 * 60));
+           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+           // Format minutes and seconds
+           minutes = minutes < 10 ? "0" + minutes : minutes;
+           seconds = seconds < 10 ? "0" + seconds : seconds;
+
+           // Display the result in the timer div
+           document.getElementById("timer").innerHTML = "Time Left: " + minutes + ":" + seconds;
+
+           // Update the timer every second
+           setTimeout(updateTimer, 1000);
+       }
+
+       // Call the function to start the timer
+       updateTimer();
+*/
+
+// time and date home page
+function updateTime() {
+           const now = new Date();
+           const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+           const timeString = now.toLocaleDateString('en-US', options);
+           document.getElementById('current-time').textContent = timeString;
+       }
+
+       setInterval(updateTime, 1000);
+       updateTime();
+
 
 /*
 add-contact form description editer

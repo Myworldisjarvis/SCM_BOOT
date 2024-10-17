@@ -347,4 +347,12 @@ public class UserController {
 	    return "redirect:/user/view-contacts/0";
 	}
 
+	@GetMapping("/view-profile")
+	public String showProfile(Model m) {
+		
+		m.addAttribute("title","Your-Profile");
+		return "normal/profile";
+		
+	}
+	
 }

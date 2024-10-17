@@ -69,14 +69,14 @@
 							<td>
 								<div class="table-actions">
 									<a th:href="@{'/user/'+${contact.cId}+'/contact'}"
-										class="btn btn-sm btn-info">View</a> 
-										
-										<form th:action="@{/user/edit-contact/} + ${contact.cId}" method="post">
+										class="btn btn-sm btn-info">View</a>
+
+									<form th:action="@{/user/edit-contact/} + ${contact.cId}"
+										method="post" class="d-grid">
 										<button class="btn btn-sm btn-warning">Edit</button>
-										</form>
-										
-										 <a
-										th:href="@{/user/delete-contact/} + ${contact.cId}"
+									</form>
+
+									<a th:href="@{/user/delete-contact/} + ${contact.cId}"
 										class="btn btn-sm btn-danger">Delete</a>
 								</div>
 							</td>
